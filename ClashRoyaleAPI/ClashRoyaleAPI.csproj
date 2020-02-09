@@ -18,4 +18,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ClashRoyaleDomain\ClashRoyaleDomain.csproj" />
+  </ItemGroup>
+
 </Project>
