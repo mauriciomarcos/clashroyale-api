@@ -4,5 +4,25 @@
         <name>ClashRoyaleAPI</name>
     </assembly>
     <members>
+        <member name="T:ClashRoyaleAPI.Controllers.CardController">
+            <summary>
+            Controller que possibilita a manutenção e obtenção dos dados referentes aos Cards do Clash Royale.
+            </summary>
+        </member>
+        <member name="M:ClashRoyaleAPI.Controllers.CardController.#ctor(ClashRoyaleService.ServiceInterfaces.ICardService,Microsoft.Extensions.Caching.Memory.IMemoryCache)">
+            <summary> Construtor que recebe parâmentros dos tipo ICardService e IMemoryCache por injeção de dependência.</summary>
+            <param name="cardService"></param>
+            <param name="memoryCache"></param>
+        </member>
+        <member name="M:ClashRoyaleAPI.Controllers.CardController.Get">
+            <summary>Método Get() obtém todos os Cards do jogo.</summary>
+            <response code="200">Quando o método Get() consiguir se comunicar com a API do Clash Royale e retornar a lista com todos os Cards do jogo.</response>
+            <returns></returns>
+        </member>
+        <member name="M:ClashRoyaleAPI.Controllers.CardController.Get(System.Int64)">
+            <summary>Retorna o Card a partir do id enviado como parâmetro.</summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

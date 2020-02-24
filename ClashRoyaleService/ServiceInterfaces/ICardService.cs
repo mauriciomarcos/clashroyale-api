@@ -6,5 +6,7 @@ namespace ClashRoyaleService.ServiceInterfaces
     public interface ICardService
     {
         IEnumerable<Card> GetAllCards();
+
+        Card GetById(long id);
     }
 }

@@ -31,11 +31,18 @@ namespace ClashRoyaleAPI
             CarregarDependenciasDominioAplicacao(services);
             ConfigurarDependenciasSwagger(services);
 
+            /*
+             * O MemoryCache não é indicado para API que possívelmente poderão ser escaladas horizontalmente.
+             * 
+             * Exemplo: se a appicação por necessidade possuir duas instâncias de uma mesma API em servidores diferentes,
+             * haverá um disperdício de memória, uma vez que os dados de cache estarão ocupando recurso de dois servidores, e também,
+             * as informações em cache serão diferentes.
+             */
             services.AddMemoryCache();
 
             // Criando a injeção de dependência da classe criada [ConfigurationKeyAPI] para possibilitar o Bind da chave "ConfigurationKeyAPI" do arquivo appsettings.json
             // O nome da classe ConfigurationKeyApi é igual ao nome da Section no arquivo appsettings.json e a Propriedade da classe ApiKey é igual ao nome e tipo da chave que se quer recuperar do arquivo appsettings.json.
-            services.Configure<ConfigurationKeyAPI>(Configuration.GetSection("ConfigurationKeyAPI"));
+            services.Configure<ConfigurationAPI>(Configuration.GetSection("ConfigurationAPI"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

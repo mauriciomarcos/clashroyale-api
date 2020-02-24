@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ClashRoyaleDomain;
 using ClashRoyaleService.ServiceInterfaces;
 using ClashRoyaleUtils.Configurations;
@@ -10,24 +11,40 @@ namespace ClashRoyaleService
 {
     public class CardService : ICardService
     {
-        private readonly ConfigurationKeyAPI _apiKey;
+        private readonly ConfigurationAPI _apiConfiguration;
 
-        public CardService(IOptions<ConfigurationKeyAPI> keyAPIOptions)
+        public CardService(IOptions<ConfigurationAPI> apiOptions)
         {
-            _apiKey = keyAPIOptions.Value;
+            _apiConfiguration = apiOptions.Value;
         }
 
         public IEnumerable<Card> GetAllCards()
         {
-            var client = new RestClient("https://api.clashroyale.com/v1/cards");
+            var client = new RestClient(_apiConfiguration.UriGetCards);
             var request = new RestRequest(Method.GET);
 
-            request.AddHeader("Authorization", string.Format("{0}{1}", "Bearer ", _apiKey.ApiKey));
+            request.AddHeader("Authorization", string.Format("{0}{1}", "Bearer ", _apiConfiguration.ApiKey));
             IRestResponse<IEnumerable<Card>> response = client.Execute<IEnumerable<Card>>(request);
 
             var json = JObject.Parse(response.Content);
 
             return FillCardList(json);
+        }
+
+        public Card GetById(long id)
+        {
+            var client = new RestClient(_apiConfiguration.UriGetCards);
+            var request = new RestRequest(Method.GET);
+
+            request.AddHeader("Authorization", string.Format("{0}{1}", "Bearer ", _apiConfiguration.ApiKey));
+            IRestResponse<IEnumerable<Card>> response = client.Execute<IEnumerable<Card>>(request);
+
+            var json = JObject.Parse(response.Content);
+
+            return FillCardList(json)
+                .ToList()
+                .Where(card => card.Id == id)
+                .FirstOrDefault();
         }
 
         #region | MÉTODOS AUXILIARES |
