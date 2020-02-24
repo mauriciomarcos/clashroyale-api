@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using ClashRoyaleDomain;
 using ClashRoyaleService.ServiceInterfaces;
-using Microsoft.Extensions.Configuration;
+using ClashRoyaleUtils.Configurations;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
@@ -9,20 +10,19 @@ namespace ClashRoyaleService
 {
     public class CardService : ICardService
     {
-        private readonly string _appSettingsAPIKey;
+        private readonly ConfigurationKeyAPI _apiKey;
 
-        public CardService(IConfiguration configuration)
+        public CardService(IOptions<ConfigurationKeyAPI> keyAPIOptions)
         {
-            _appSettingsAPIKey = configuration.GetSection("Api-Key").Value;
+            _apiKey = keyAPIOptions.Value;
         }
 
         public IEnumerable<Card> GetAllCards()
         {
-            var apiKey = _appSettingsAPIKey;
             var client = new RestClient("https://api.clashroyale.com/v1/cards");
             var request = new RestRequest(Method.GET);
 
-            request.AddHeader("Authorization", apiKey);
+            request.AddHeader("Authorization", string.Format("{0}{1}", "Bearer ", _apiKey.ApiKey));
             IRestResponse<IEnumerable<Card>> response = client.Execute<IEnumerable<Card>>(request);
 
             var json = JObject.Parse(response.Content);

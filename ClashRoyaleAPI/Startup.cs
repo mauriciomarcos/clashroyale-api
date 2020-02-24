@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using ClashRoyaleService;
 using ClashRoyaleService.ServiceInterfaces;
+using ClashRoyaleUtils.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,10 @@ namespace ClashRoyaleAPI
             ConfigurarDependenciasSwagger(services);
 
             services.AddMemoryCache();
+
+            // Criando a injeção de dependência da classe criada [ConfigurationKeyAPI] para possibilitar o Bind da chave "ConfigurationKeyAPI" do arquivo appsettings.json
+            // O nome da classe ConfigurationKeyApi é igual ao nome da Section no arquivo appsettings.json e a Propriedade da classe ApiKey é igual ao nome e tipo da chave que se quer recuperar do arquivo appsettings.json.
+            services.Configure<ConfigurationKeyAPI>(Configuration.GetSection("ConfigurationKeyAPI"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
