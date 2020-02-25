@@ -5,11 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ClashRoyaleAPI.Controllers
 {
@@ -70,7 +67,7 @@ namespace ClashRoyaleAPI.Controllers
         [HttpGet]
         [Route("{id:long}")]
         [ProducesResponseType(typeof(Card), StatusCodes.Status200OK)]
-        public ActionResult<Card> Get(long id)
+        public IActionResult Get(long id)
         {
             var memoryCache = _memoryCache.GetOrCreate($"CardId:{id}", cacheEntry =>
             {

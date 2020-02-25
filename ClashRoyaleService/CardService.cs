@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ClashRoyaleDomain;
 using ClashRoyaleService.ServiceInterfaces;
 using ClashRoyaleUtils.Configurations;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -12,23 +14,39 @@ namespace ClashRoyaleService
     public class CardService : ICardService
     {
         private readonly ConfigurationAPI _apiConfiguration;
+        private readonly ILogger<CardService> _logger;
 
-        public CardService(IOptions<ConfigurationAPI> apiOptions)
+        public CardService(IOptions<ConfigurationAPI> apiOptions, ILogger<CardService> logger)
         {
             _apiConfiguration = apiOptions.Value;
+            _logger = logger;
         }
 
         public IEnumerable<Card> GetAllCards()
         {
+            _logger.Log(LogLevel.Information, $"Início da chamada do método GetAllCards - CardService {DateTime.Now}");
+
             var client = new RestClient(_apiConfiguration.UriGetCards);
             var request = new RestRequest(Method.GET);
 
-            request.AddHeader("Authorization", string.Format("{0}{1}", "Bearer ", _apiConfiguration.ApiKey));
-            IRestResponse<IEnumerable<Card>> response = client.Execute<IEnumerable<Card>>(request);
+            try
+            {
+                request.AddHeader("Authorization", string.Format("{0}{1}", "Bearer ", _apiConfiguration.ApiKey));
 
-            var json = JObject.Parse(response.Content);
+                _logger.Log(LogLevel.Information, $"Início da chamada ao endpoint do Clash Royale - CardService {DateTime.Now}");
+                IRestResponse<IEnumerable<Card>> response = client.Execute<IEnumerable<Card>>(request);
+                _logger.Log(LogLevel.Information, $"Fim da chamada ao endpoint do Clash Royale - CardService {DateTime.Now}");
 
-            return FillCardList(json);
+                var json = JObject.Parse(response.Content);
+
+                return FillCardList(json);
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(LogLevel.Error, ex.StackTrace, $"{ex.Message} - {DateTime.Now}");
+                throw ex;
+            }
+         
         }
 
         public Card GetById(long id)
@@ -36,15 +54,22 @@ namespace ClashRoyaleService
             var client = new RestClient(_apiConfiguration.UriGetCards);
             var request = new RestRequest(Method.GET);
 
-            request.AddHeader("Authorization", string.Format("{0}{1}", "Bearer ", _apiConfiguration.ApiKey));
-            IRestResponse<IEnumerable<Card>> response = client.Execute<IEnumerable<Card>>(request);
+            try
+            {
+                request.AddHeader("Authorization", string.Format("{0}{1}", "Bearer ", _apiConfiguration.ApiKey));
+                IRestResponse<IEnumerable<Card>> response = client.Execute<IEnumerable<Card>>(request);
 
-            var json = JObject.Parse(response.Content);
+                var json = JObject.Parse(response.Content);
 
-            return FillCardList(json)
-                .ToList()
-                .Where(card => card.Id == id)
-                .FirstOrDefault();
+                return FillCardList(json)
+                    .ToList()
+                    .Where(card => card.Id == id)
+                    .FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }            
         }
 
         #region | MÉTODOS AUXILIARES |
