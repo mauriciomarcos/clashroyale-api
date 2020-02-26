@@ -65,7 +65,7 @@ namespace ClashRoyaleAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{id:long}")]
+        [Route("{id:idCardConstraint}")]
         [ProducesResponseType(typeof(Card), StatusCodes.Status200OK)]
         public IActionResult Get(long id)
         {

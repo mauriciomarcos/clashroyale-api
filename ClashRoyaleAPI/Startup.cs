@@ -5,6 +5,7 @@ using ClashRoyaleService;
 using ClashRoyaleService.ServiceInterfaces;
 using ClashRoyaleUtils.Configurations;
 using ClashRoyaleUtils.HealthCheckCustons;
+using ClashRoyaleUtils.RouteConstraints;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -79,6 +80,12 @@ namespace ClashRoyaleAPI
             // Adicionada Microsoft.Extensions.Diagnostics.HealthChecks(instalado versão 2.2.0 via NuGet)
             services.AddHealthChecksUI(setupSettings: setup => {
                 setup.AddHealthCheckEndpoint("Health Checks API Clash Royale", "https://localhost:44381/healthChecks");                                                                                       
+            });
+
+            // Adicionando e configurando o serviço de roteamento para habilitar a constraint criada: RouteConstraintIDCardValidation. 
+            services.AddRouting(configureOptions: options => {
+                                       // key: nome da constraint value: é o tipo da cnstraint, neste caso RouteConstraintIDCardValidation                     
+                options.ConstraintMap.Add(key:"idCardConstraint", value: typeof(RouteConstraintIDCardValidation));
             });
         }
 
