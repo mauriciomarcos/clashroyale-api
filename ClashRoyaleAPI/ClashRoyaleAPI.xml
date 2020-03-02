@@ -15,12 +15,11 @@
             </summary>
             <param name="userService"></param>
         </member>
-        <member name="M:ClashRoyaleAPI.Controllers.AuthController.Post(System.String,System.String)">
+        <member name="M:ClashRoyaleAPI.Controllers.AuthController.Post(ClashRoyaleUtils.DataTransferObjects.UserDTO)">
             <summary>
             
             </summary>
-            <param name="userName"></param>
-            <param name="password"></param>
+            <param name="userDTO"></param>
             <returns></returns>
         </member>
         <member name="T:ClashRoyaleAPI.Controllers.CardController">

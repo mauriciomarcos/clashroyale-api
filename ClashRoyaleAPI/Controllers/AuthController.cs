@@ -37,10 +37,10 @@ namespace ClashRoyaleAPI.Controllers
         [AllowAnonymous]
         public ActionResult<UserDTO> Post([FromBody] UserDTO userDTO)
         {
-            var user = _userService.GetUserTokenByUser(userDTO.User.UserName, userDTO.User.Password);
+            var user = _userService.GetUserTokenByUser(userDTO.UserName, userDTO.Password);
 
             if (user == null)
-                return NotFound($"Usuário {userDTO.User.UserName} não localizado!");
+                return NotFound($"Usuário {userDTO.UserName} não localizado!");
 
             return Ok(user);
         }

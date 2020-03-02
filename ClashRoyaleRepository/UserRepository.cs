@@ -35,7 +35,6 @@ namespace ClashRoyaleRepository
             });
 
             var user = users.FirstOrDefault(u => u.UserName == userName && u.Password == password);
-            user.Password = string.Empty;
 
             return user;
            

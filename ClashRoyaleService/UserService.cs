@@ -27,7 +27,7 @@ namespace ClashRoyaleService
 
                 var userDTO = new UserDTO()
                 {
-                    User = user,
+                    UserName = userName,
                     Token = token
                 };
 
