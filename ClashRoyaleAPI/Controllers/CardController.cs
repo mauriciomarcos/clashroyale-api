@@ -1,6 +1,7 @@
 ﻿using ClashRoyaleDomain;
 using ClashRoyaleService.ServiceInterfaces;
 using ClashRoyaleUtils.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
@@ -15,6 +16,7 @@ namespace ClashRoyaleAPI.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CardController : ControllerBase
     {
         private readonly ICardService _cardService;
@@ -69,7 +71,7 @@ namespace ClashRoyaleAPI.Controllers
         [ProducesResponseType(typeof(Card), StatusCodes.Status200OK)]
         public IActionResult Get(long id)
         {
-            var memoryCache = _memoryCache.GetOrCreate($"CardId:{id}", cacheEntry =>
+            var memoryCache = _memoryCache.GetOrCreate(key: $"CardId:{id}", factory: cacheEntry =>
             {
                 cacheEntry.SlidingExpiration = TimeSpan.FromSeconds(10);
                 return Ok(_cardService.GetById(id));

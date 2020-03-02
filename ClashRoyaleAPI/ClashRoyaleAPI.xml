@@ -4,6 +4,25 @@
         <name>ClashRoyaleAPI</name>
     </assembly>
     <members>
+        <member name="T:ClashRoyaleAPI.Controllers.AuthController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ClashRoyaleAPI.Controllers.AuthController.#ctor(ClashRoyaleService.ServiceInterfaces.IUserService)">
+            <summary>
+            
+            </summary>
+            <param name="userService"></param>
+        </member>
+        <member name="M:ClashRoyaleAPI.Controllers.AuthController.Post(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="userName"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
         <member name="T:ClashRoyaleAPI.Controllers.CardController">
             <summary>
             Controller que possibilita a manutenção e obtenção dos dados referentes aos Cards do Clash Royale.

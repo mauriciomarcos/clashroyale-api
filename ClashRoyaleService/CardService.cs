@@ -14,11 +14,17 @@ namespace ClashRoyaleService
     public class CardService : ICardService
     {
         private readonly ConfigurationAPI _apiConfiguration;
+        private readonly AuthConfig _authConfig;
         private readonly ILogger<CardService> _logger;
 
-        public CardService(IOptions<ConfigurationAPI> apiOptions, ILogger<CardService> logger)
+        public CardService(
+            IOptions<ConfigurationAPI> apiOptions, 
+            IOptions<AuthConfig> authConfig, 
+            ILogger<CardService> logger
+            )
         {
             _apiConfiguration = apiOptions.Value;
+            _authConfig = authConfig.Value;
             _logger = logger;
         }
 

@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClashRoyaleDomain", "ClashR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClashRoyaleService", "ClashRoyaleService\ClashRoyaleService.csproj", "{50E78726-C0F7-4A53-A2F8-60F364F66FC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClashRoyaleUtils", "ClashRoyaleUtils\ClashRoyaleUtils.csproj", "{993A05DC-E589-4BF6-808A-566C0F140C41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClashRoyaleUtils", "ClashRoyaleUtils\ClashRoyaleUtils.csproj", "{993A05DC-E589-4BF6-808A-566C0F140C41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClashRoyaleRepository", "ClashRoyaleRepository\ClashRoyaleRepository.csproj", "{AFDBF55F-598E-4775-9329-A83606DE85C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{993A05DC-E589-4BF6-808A-566C0F140C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{993A05DC-E589-4BF6-808A-566C0F140C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{993A05DC-E589-4BF6-808A-566C0F140C41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFDBF55F-598E-4775-9329-A83606DE85C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFDBF55F-598E-4775-9329-A83606DE85C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFDBF55F-598E-4775-9329-A83606DE85C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFDBF55F-598E-4775-9329-A83606DE85C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ClashRoyaleDomain\ClashRoyaleDomain.csproj" />
+    <ProjectReference Include="..\ClashRoyaleRepository\ClashRoyaleRepository.csproj" />
     <ProjectReference Include="..\ClashRoyaleService\ClashRoyaleService.csproj" />
     <ProjectReference Include="..\ClashRoyaleUtils\ClashRoyaleUtils.csproj" />
   </ItemGroup>
